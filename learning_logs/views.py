@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from .models import Topic, Entry
 from .forms import TopicForm, EntryForm
 from django.http import Http404
-
+from django.urls import reverse
 # Create your views here.
 def index(request):
     """The home page for learning log."""
@@ -40,7 +40,7 @@ def new_topic(request):
             new_topic = form.save(commit=False)
             new_topic.owner = request.user
             new_topic.save()
-            return redirect('learning_logs:topic')
+            return redirect(reverse('learning_logs:topic', args=[new_topic.id]))
         
     # Display a blank or invalid form.
     context = {'form': form}

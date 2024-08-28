@@ -3,20 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Register</title>
 </head>
 <body>
     {% extends "learning_logs/base.html" %}
+    {% load bootstrap4 %}
+
+    {% block page_header %}
+    <h2>Register an account</h2>
+    {% endblock page_header %}
 
     {% block content %}
 
-    <form action="{% url 'users:register' %}" method="post">
+    <form action="{% url 'users:register' %}" method="post" class="form">
         {% csrf_token %}
-        {{ form.as_p }}
-
+        {% bootstrap_form form %}
+        {% buttons %}
         <button name="submit">Register</button>
-        <input type="hidden" name="next" value="% url 'learning_logs:index' %" />
-    </form>
+        {% endbuttons %}
+
+        <input type="hidden" name="next" value="{% url 'learning_logs:topics' %}" />
+      </form>
     {% endblock content%}
 </body>
 </html>
